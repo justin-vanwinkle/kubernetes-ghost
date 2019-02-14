@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+spec:
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      replicas: 1
+      containers:
+      - name: ghost
+        image: ghost:1-alpine
+        resources:
+          # limits:
+          #   memory: "128Mi"
+          #   cpu: "500m"
+        ports:
+        - containerPort: 2368
+      - name: filesync
+        image: justinreg/filesync:latest
